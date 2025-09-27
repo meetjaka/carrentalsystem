@@ -5,6 +5,7 @@ import connectDB from "./configs/db.js";
 import userRouter from "./routes/userRoutes.js";
 import ownerRouter from "./routes/ownerRoutes.js";
 import bookingRouter from "./routes/bookingRoutes.js";
+import chatRouter from "./routes/chatRoutes.js";
 
 const app = express();
 
@@ -18,6 +19,7 @@ app.get("/", (req, res) => res.send("Server is Running"));
 app.use("/api/user", userRouter);
 app.use("/api/owner", ownerRouter);
 app.use("/api/booking", bookingRouter);
+app.use("/api/chat", chatRouter);
 
 const PORT = process.env.PORT || 3000;
 

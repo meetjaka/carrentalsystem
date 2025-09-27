@@ -86,15 +86,23 @@ const CarDetails = () => {
                 {car.category} • {car.year}
               </p>
               {car.owner && (
-                <p className="mt-2 text-base">
-                  Owner:{" "}
-                  <span
-                    className="text-primary font-semibold cursor-pointer hover:underline"
-                    onClick={() => navigate(`/owner-cars/${car.owner}`)}
+                <div className="mt-2 flex items-center gap-4">
+                  <p className="text-base">
+                    Owner:{" "}
+                    <span
+                      className="text-primary font-semibold cursor-pointer hover:underline"
+                      onClick={() => navigate(`/owner-cars/${car.owner}`)}
+                    >
+                      {car.ownerName || "View Owner"}
+                    </span>
+                  </p>
+                  <button
+                    onClick={() => navigate(`/chat/${car.owner}`)}
+                    className="px-4 py-1.5 bg-green-500 hover:bg-green-600 text-white text-sm rounded-lg transition-colors"
                   >
-                    {car.ownerName || "View Owner"}
-                  </span>
-                </p>
+                    Chat with Owner
+                  </button>
+                </div>
               )}
             </div>
             <hr className="border-borderColor my-6" />

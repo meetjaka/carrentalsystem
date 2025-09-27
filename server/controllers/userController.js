@@ -115,3 +115,18 @@ export const getCars = async (req, res) => {
     res.json({ success: false, message: error.message });
   }
 };
+
+// Get user by ID (for chat feature)
+export const getUserById = async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const user = await User.findById(userId).select("name image role");
+    if (!user) {
+      return res.json({ success: false, message: "User not found" });
+    }
+    res.json({ success: true, user });
+  } catch (error) {
+    console.log(error.message);
+    res.json({ success: false, message: error.message });
+  }
+};

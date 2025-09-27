@@ -96,6 +96,15 @@ const Navbar = ({}) => {
                     Dashboard
                   </button>
                   <button
+                    className="block w-full text-left px-4 py-2 hover:bg-gray-100"
+                    onClick={() => {
+                      navigate("/chats");
+                      setOpen(false);
+                    }}
+                  >
+                    Messages
+                  </button>
+                  <button
                     className="block w-full text-left px-4 py-2 hover:bg-gray-100 text-red-600"
                     onClick={() => {
                       logout();

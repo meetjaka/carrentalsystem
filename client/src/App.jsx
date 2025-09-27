@@ -17,6 +17,8 @@ import { Toaster } from "react-hot-toast";
 import { useAppContext } from "./context/AppContext";
 import ConfirmEmail from "./pages/ConfirmEmail";
 import OwnerCars from "./pages/OwnerCars";
+import Chat from "./pages/Chat";
+import ChatList from "./pages/ChatList";
 const App = () => {
   const { showLogin } = useAppContext();
   const isOwnerPath = useLocation().pathname.startsWith("/owner");
@@ -35,6 +37,8 @@ const App = () => {
         <Route path="/favorites" element={<Favorites />} />
         <Route path="/confirm/:token" element={<ConfirmEmail />} />
         <Route path="/owner-cars/:ownerId" element={<OwnerCars />} />
+        <Route path="/chat/:ownerId" element={<Chat />} />
+        <Route path="/chats" element={<ChatList />} />
         <Route path="/owner" element={<Layout />}>
           <Route index element={<Dashboard />} />
           <Route path="add-car" element={<AddCar />} />
