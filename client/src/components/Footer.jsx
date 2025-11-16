@@ -8,13 +8,13 @@ const Footer = () => {
       initial={{ y: 30, opacity: 0 }}
       whileInView={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6 }}
-      className="px=6 md:px-16 lg:px-24 xl:px-32 mt-60 text-sm text-gray-500"
+      className="px=6 md:px-16 lg:px-24 xl:px-32 mt-60 text-sm text-[#8DA0BF] bg-[#0A0F14]"
     >
       <motion.div
         initial={{ y: 20, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, delay: 0.2 }}
-        className="flex flex-wrap justify-between gap-8 pb-6 border-borderColor border-b"
+        className="flex flex-wrap justify-between gap-8 pb-6 border-[rgba(255,255,255,0.04)] border-b"
       >
         <div>
           <motion.img
@@ -61,45 +61,45 @@ const Footer = () => {
           className="flex flex-wrap justify-between w-1/2 gap-8"
         >
           <div>
-            <h2 className="text-base font-medium   text-gray-800">
+            <h2 className="text-base font-medium text-[#DCE7F5]">
               Quick Links
             </h2>
             <ul className="mt-3 flex flex-col gap-1.5 text-sm">
               <li>
-                <a href="#">Home</a>
+                <a href="#" className="hover:text-[#0A4D9F] transition-colors">Home</a>
               </li>
               <li>
-                <a href="#">Browse Cars</a>
+                <a href="#" className="hover:text-[#0A4D9F] transition-colors">Browse Cars</a>
               </li>
               <li>
-                <a href="#">List Your Cars</a>
+                <a href="#" className="hover:text-[#0A4D9F] transition-colors">List Your Cars</a>
               </li>
               <li>
-                <a href="#">About Us</a>
+                <a href="#" className="hover:text-[#0A4D9F] transition-colors">About Us</a>
               </li>
             </ul>
           </div>
 
           <div>
-            <h2 className="text-base font-medium   text-gray-800">Resources</h2>
+            <h2 className="text-base font-medium text-[#DCE7F5]">Resources</h2>
             <ul className="mt-3 flex flex-col gap-1.5 text-sm">
               <li>
-                <a href="#">Help Center</a>
+                <a href="#" className="hover:text-[#0A4D9F] transition-colors">Help Center</a>
               </li>
               <li>
-                <a href="#">Terms of Service</a>
+                <a href="#" className="hover:text-[#0A4D9F] transition-colors">Terms of Service</a>
               </li>
               <li>
-                <a href="#">Privacy Policy</a>
+                <a href="#" className="hover:text-[#0A4D9F] transition-colors">Privacy Policy</a>
               </li>
               <li>
-                <a href="#">Insurance</a>
+                <a href="#" className="hover:text-[#0A4D9F] transition-colors">Insurance</a>
               </li>
             </ul>
           </div>
 
           <div>
-            <h2 className="text-base font-medium   text-gray-800">Contact</h2>
+            <h2 className="text-base font-medium text-[#DCE7F5]">Contact</h2>
             <ul className="mt-3 flex flex-col gap-1.5 text-sm">
               <li>1234 Rental Car Office</li>
               <li>San Francisco , CA 94107</li>

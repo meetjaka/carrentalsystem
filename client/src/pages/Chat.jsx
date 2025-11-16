@@ -108,59 +108,65 @@ const Chat = () => {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center h-screen">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+      <div className="flex items-center justify-center h-screen bg-[#0A0F14]">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#0A4D9F]"></div>
       </div>
     );
   }
 
   return (
-    <div className="flex flex-col h-screen bg-gray-50">
+    <div className="flex flex-col h-screen bg-[#0A0F14]">
       {/* Header */}
-      <div className="bg-white shadow-sm border-b px-6 py-4 flex items-center gap-4 relative">
+      <div className="bg-[#121A22] shadow-[0_8px_24px_rgba(0,0,0,0.6)] border-b border-[rgba(255,255,255,0.04)] px-6 py-4 flex items-center gap-4 relative">
         <button
           onClick={() => navigate(-1)}
-          className="p-2 hover:bg-gray-100 rounded-full transition-colors flex-shrink-0"
+          className="p-2 hover:bg-[#0C2A44] rounded-full transition-colors flex-shrink-0"
         >
           <img
             src={assets.arrow_icon}
             alt="back"
-            className="w-5 h-5 rotate-180"
+            className="w-5 h-5 rotate-180 brightness-0 invert opacity-60"
           />
         </button>
 
         <div className="flex items-center gap-4 flex-1">
           <div className="relative">
-            <img
-              src={ownerInfo?.image || assets.user_profile}
-              alt="owner"
-              className="w-12 h-12 rounded-full object-cover ring-2 ring-gray-100"
-            />
+            {ownerInfo?.image ? (
+              <img
+                src={ownerInfo.image}
+                alt="owner"
+                className="w-12 h-12 rounded-full object-cover ring-2 ring-[#0A4D9F]"
+              />
+            ) : (
+              <div className="w-12 h-12 rounded-full bg-[#121A22] flex items-center justify-center text-[#0A4D9F] font-semibold text-xl ring-2 ring-[#0A4D9F]">
+                {ownerInfo?.name?.charAt(0)?.toUpperCase() || "O"}
+              </div>
+            )}
             {/* Online status indicator */}
-            <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-white rounded-full"></div>
+            <div className="absolute bottom-0 right-0 w-3 h-3 bg-[#16A34A] border-2 border-[#121A22] rounded-full"></div>
           </div>
 
           <div className="flex-1 min-w-0">
-            <h2 className="font-semibold text-gray-900 text-lg">
+            <h2 className="font-semibold text-[#DCE7F5] text-lg">
               {ownerInfo?.name || "Car Owner"}
             </h2>
-            <p className="text-sm text-gray-500">Car Owner</p>
+            <p className="text-sm text-[#8DA0BF]">Car Owner</p>
           </div>
 
           {/* Action buttons */}
           <div className="flex items-center gap-2">
-            <button className="p-2 hover:bg-gray-100 rounded-full transition-colors">
+            <button className="p-2 hover:bg-[#0C2A44] rounded-full transition-colors">
               <svg
-                className="w-5 h-5 text-gray-600"
+                className="w-5 h-5 text-[#8DA0BF]"
                 fill="currentColor"
                 viewBox="0 0 20 20"
               >
                 <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
               </svg>
             </button>
-            <button className="p-2 hover:bg-gray-100 rounded-full transition-colors">
+            <button className="p-2 hover:bg-[#0C2A44] rounded-full transition-colors">
               <svg
-                className="w-5 h-5 text-gray-600"
+                className="w-5 h-5 text-[#8DA0BF]"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -178,13 +184,13 @@ const Chat = () => {
       </div>
 
       {/* Messages */}
-      <div className="flex-1 overflow-y-auto px-6 py-4 space-y-4">
+      <div className="flex-1 overflow-y-auto px-6 py-4 space-y-4 bg-[#0A0F14]">
         {messages.length === 0 ? (
-          <div className="flex flex-col items-center justify-center h-full text-gray-500">
+          <div className="flex flex-col items-center justify-center h-full text-[#8DA0BF]">
             <img
               src={assets.car_icon}
               alt="chat"
-              className="w-16 h-16 opacity-50 mb-4"
+              className="w-16 h-16 opacity-50 mb-4 brightness-0 invert opacity-30"
             />
             <p>Start a conversation about the car</p>
           </div>
@@ -210,11 +216,17 @@ const Chat = () => {
                 >
                   {/* Avatar for received messages */}
                   {showAvatar && (
-                    <img
-                      src={ownerInfo?.image || assets.user_profile}
-                      alt="sender"
-                      className="w-7 h-7 rounded-full object-cover mb-1"
-                    />
+                    ownerInfo?.image ? (
+                      <img
+                        src={ownerInfo.image}
+                        alt="sender"
+                        className="w-7 h-7 rounded-full object-cover mb-1"
+                      />
+                    ) : (
+                      <div className="w-7 h-7 rounded-full bg-[#121A22] flex items-center justify-center text-[#0A4D9F] font-semibold text-xs mb-1">
+                        {ownerInfo?.name?.charAt(0)?.toUpperCase() || "O"}
+                      </div>
+                    )
                   )}
                   {!showAvatar && !isOwn && <div className="w-7"></div>}
 
@@ -222,8 +234,8 @@ const Chat = () => {
                     <div
                       className={`px-4 py-3 rounded-2xl ${
                         isOwn
-                          ? "bg-primary text-white rounded-br-md"
-                          : "bg-gray-100 text-gray-900 rounded-bl-md"
+                          ? "bg-[#0A4D9F] text-white rounded-br-md"
+                          : "bg-[#121A22] text-[#DCE7F5] rounded-bl-md border border-[rgba(255,255,255,0.04)]"
                       } shadow-sm`}
                     >
                       <p className="text-sm leading-relaxed">{msg.message}</p>
@@ -235,7 +247,7 @@ const Chat = () => {
                         isOwn ? "justify-end" : "justify-start"
                       }`}
                     >
-                      <span className="text-xs text-gray-400">
+                      <span className="text-xs text-[#8DA0BF]">
                         {new Date(msg.createdAt).toLocaleTimeString([], {
                           hour: "2-digit",
                           minute: "2-digit",
@@ -247,19 +259,19 @@ const Chat = () => {
                         <div className="flex items-center ml-1">
                           {msg.read ? (
                             <div className="flex">
-                              <div className="w-3 h-3 text-blue-400">
+                              <div className="w-3 h-3 text-[#0A4D9F]">
                                 <svg viewBox="0 0 16 16" fill="currentColor">
                                   <path d="M12.416 3.376a.75.75 0 0 1 .208 1.04l-5 7.5a.75.75 0 0 1-1.154.114l-3-3a.75.75 0 0 1 1.06-1.06l2.353 2.353 4.493-6.74a.75.75 0 0 1 1.04-.207Z" />
                                 </svg>
                               </div>
-                              <div className="w-3 h-3 text-blue-400 -ml-1">
+                              <div className="w-3 h-3 text-[#0A4D9F] -ml-1">
                                 <svg viewBox="0 0 16 16" fill="currentColor">
                                   <path d="M12.416 3.376a.75.75 0 0 1 .208 1.04l-5 7.5a.75.75 0 0 1-1.154.114l-3-3a.75.75 0 0 1 1.06-1.06l2.353 2.353 4.493-6.74a.75.75 0 0 1 1.04-.207Z" />
                                 </svg>
                               </div>
                             </div>
                           ) : (
-                            <div className="w-3 h-3 text-gray-400">
+                            <div className="w-3 h-3 text-[#8DA0BF]">
                               <svg viewBox="0 0 16 16" fill="currentColor">
                                 <path d="M12.416 3.376a.75.75 0 0 1 .208 1.04l-5 7.5a.75.75 0 0 1-1.154.114l-3-3a.75.75 0 0 1 1.06-1.06l2.353 2.353 4.493-6.74a.75.75 0 0 1 1.04-.207Z" />
                               </svg>
@@ -278,7 +290,7 @@ const Chat = () => {
       </div>
 
       {/* Message Input */}
-      <div className="bg-white border-t px-6 py-4 shadow-lg">
+      <div className="bg-[#121A22] border-t border-[rgba(255,255,255,0.04)] px-6 py-4 shadow-[0_8px_24px_rgba(0,0,0,0.6)]">
         <form onSubmit={sendMessage} className="flex gap-3 items-end">
           <div className="flex-1 relative">
             <input
@@ -286,7 +298,7 @@ const Chat = () => {
               value={newMessage}
               onChange={(e) => setNewMessage(e.target.value)}
               placeholder="Type your message..."
-              className="w-full px-5 py-3 pr-12 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent resize-none bg-gray-50 transition-all"
+              className="w-full px-5 py-3 pr-12 border border-[rgba(255,255,255,0.04)] rounded-2xl focus:outline-none focus:ring-2 focus:ring-[rgba(10,77,159,0.3)] focus:border-transparent resize-none bg-[#0F161C] text-[#DCE7F5] placeholder:text-[#8DA0BF] transition-all"
               onKeyPress={(e) => {
                 if (e.key === "Enter" && !e.shiftKey) {
                   e.preventDefault();
@@ -297,7 +309,7 @@ const Chat = () => {
             {/* Emoji button placeholder */}
             <button
               type="button"
-              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
+              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-[#8DA0BF] hover:text-[#DCE7F5] transition-colors"
             >
               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                 <path
@@ -311,7 +323,7 @@ const Chat = () => {
           <button
             type="submit"
             disabled={!newMessage.trim()}
-            className="px-6 py-3 bg-primary text-white rounded-2xl hover:bg-primary-dull disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 font-medium shadow-md hover:shadow-lg transform hover:scale-105 disabled:transform-none"
+            className="px-6 py-3 bg-[#0A4D9F] text-white rounded-2xl hover:bg-[#083A78] disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 font-medium shadow-md hover:shadow-lg transform hover:scale-105 disabled:transform-none focus:outline-none focus:ring-2 focus:ring-[rgba(10,77,159,0.3)]"
           >
             <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
               <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />

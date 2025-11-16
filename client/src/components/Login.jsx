@@ -1,6 +1,8 @@
 import React from "react";
 import { useAppContext } from "../context/AppContext";
 import toast from "react-hot-toast";
+import { assets } from "../assets/assets";
+import { motion } from "motion/react";
 
 const Login = () => {
   const { setShowLogin, axios, setToken, navigate } = useAppContext();
@@ -47,15 +49,27 @@ const Login = () => {
   };
 
   return (
-    <div
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
       onClick={() => setShowLogin(false)}
-      className="fixed top-0 bottom-0 left-0 right-0 z-100 flex items-center text-sm text-gray-600 bg-black/50"
+      className="fixed top-0 bottom-0 left-0 right-0 z-[100] flex items-center justify-center text-sm bg-[#0A0F14]/95 backdrop-blur-sm"
     >
       {confirmationMsg ? (
-        <div className="flex flex-col gap-4 m-auto items-center p-8 py-12 w-80 sm:w-[352px] rounded-lg shadow-xl border border-gray-200 bg-white">
-          <p className="text-2xl font-medium text-primary">{confirmationMsg}</p>
+        <motion.div
+          initial={{ scale: 0.9, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          onClick={(e) => e.stopPropagation()}
+          className="flex flex-col gap-6 m-auto items-center p-8 py-12 w-80 sm:w-[420px] rounded-2xl shadow-[0_8px_24px_rgba(0,0,0,0.6)] border border-[rgba(255,255,255,0.04)] bg-[#121A22]"
+        >
+          <div className="flex items-center gap-3 mb-2">
+            <img src={assets.logo} alt="NextDrive" className="h-8" />
+            <h2 className="text-xl font-semibold text-[#DCE7F5]">NextDrive</h2>
+          </div>
+          <p className="text-lg font-medium text-[#DCE7F5] text-center">{confirmationMsg}</p>
           <button
-            className="bg-primary hover:bg-blue-800 transition-all text-white w-full py-2 rounded-md cursor-pointer"
+            className="bg-[#0A4D9F] hover:bg-[#083A78] transition-all text-white w-full py-3 rounded-xl cursor-pointer font-medium focus:outline-none focus:ring-2 focus:ring-[rgba(10,77,159,0.3)]"
             onClick={() => {
               setConfirmationMsg("");
               setState("login");
@@ -63,88 +77,109 @@ const Login = () => {
           >
             Back to Login
           </button>
-        </div>
+        </motion.div>
       ) : (
-        <form
+        <motion.form
+          initial={{ scale: 0.9, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
           onClick={(e) => e.stopPropagation()}
           onSubmit={onSubmitHandler}
-          className="flex flex-col gap-4 m-auto items-start p-8 py-12 w-80 sm:w-[352px] rounded-lg shadow-xl border border-gray-200 bg-white"
+          className="flex flex-col gap-5 m-auto items-start p-8 py-10 w-80 sm:w-[420px] rounded-2xl shadow-[0_8px_24px_rgba(0,0,0,0.6)] border border-[rgba(255,255,255,0.04)] bg-[#121A22]"
         >
-          <p className="text-2xl font-medium m-auto">
-            <span className="text-primary">User</span>{" "}
-            {state === "login" ? "Login" : "Sign Up"}
-          </p>
+          <div className="w-full flex flex-col items-center gap-4 mb-2">
+            <div className="flex items-center gap-3">
+              <img src={assets.logo} alt="NextDrive" className="h-8" />
+              <h2 className="text-2xl font-semibold text-[#DCE7F5]">NextDrive</h2>
+            </div>
+            <p className="text-lg font-medium text-[#8DA0BF]">
+              {state === "login" ? "Welcome Back" : "Create Account"}
+            </p>
+          </div>
+
           {state === "register" && (
             <div className="w-full">
-              <p>Name</p>
+              <label className="block text-sm font-medium text-[#DCE7F5] mb-2">
+                Full Name
+              </label>
               <input
                 onChange={(e) => setName(e.target.value)}
                 value={name}
-                placeholder="type here"
-                className="border border-gray-200 rounded w-full p-2 mt-1 outline-primary"
+                placeholder="Enter your name"
+                className="border border-[rgba(255,255,255,0.04)] bg-[#0F161C] rounded-xl w-full px-4 py-3 mt-1 text-[#DCE7F5] placeholder:text-[#8DA0BF] focus:outline-none focus:ring-2 focus:ring-[rgba(10,77,159,0.3)] focus:border-transparent transition-all"
                 type="text"
                 required
               />
             </div>
           )}
+
           <div className="w-full">
-            <p>Email</p>
+            <label className="block text-sm font-medium text-[#DCE7F5] mb-2">
+              Email Address
+            </label>
             <input
               onChange={(e) => setEmail(e.target.value)}
               value={email}
-              placeholder="type here"
-              className="border border-gray-200 rounded w-full p-2 mt-1 outline-primary"
+              placeholder="Enter your email"
+              className="border border-[rgba(255,255,255,0.04)] bg-[#0F161C] rounded-xl w-full px-4 py-3 mt-1 text-[#DCE7F5] placeholder:text-[#8DA0BF] focus:outline-none focus:ring-2 focus:ring-[rgba(10,77,159,0.3)] focus:border-transparent transition-all"
               type="email"
               required
             />
           </div>
+
           <div className="w-full">
-            <p>Password</p>
+            <label className="block text-sm font-medium text-[#DCE7F5] mb-2">
+              Password
+            </label>
             <input
               onChange={(e) => setPassword(e.target.value)}
               value={password}
-              placeholder="type here"
-              className="border border-gray-200 rounded w-full p-2 mt-1 outline-primary"
+              placeholder="Enter your password"
+              className="border border-[rgba(255,255,255,0.04)] bg-[#0F161C] rounded-xl w-full px-4 py-3 mt-1 text-[#DCE7F5] placeholder:text-[#8DA0BF] focus:outline-none focus:ring-2 focus:ring-[rgba(10,77,159,0.3)] focus:border-transparent transition-all"
               type="password"
               required
             />
           </div>
-          <p>
-            {state === "register" ? (
-              <>
-                Already have an account?{" "}
-                <span
-                  onClick={() => setState("login")}
-                  className="text-primary cursor-pointer"
-                >
-                  Click here
-                </span>
-              </>
-            ) : (
-              <>
-                Create an account?{" "}
-                <span
-                  onClick={() => setState("register")}
-                  className="text-primary cursor-pointer"
-                >
-                  Click here
-                </span>
-              </>
-            )}
-          </p>
+
+          <div className="w-full text-center pt-2">
+            <p className="text-sm text-[#8DA0BF]">
+              {state === "register" ? (
+                <>
+                  Already have an account?{" "}
+                  <span
+                    onClick={() => setState("login")}
+                    className="text-[#0A4D9F] cursor-pointer hover:text-[#083A78] transition-colors font-medium"
+                  >
+                    Sign In
+                  </span>
+                </>
+              ) : (
+                <>
+                  Don't have an account?{" "}
+                  <span
+                    onClick={() => setState("register")}
+                    className="text-[#0A4D9F] cursor-pointer hover:text-[#083A78] transition-colors font-medium"
+                  >
+                    Sign Up
+                  </span>
+                </>
+              )}
+            </p>
+          </div>
+
           <button
             type="submit"
-            className="bg-primary hover:bg-blue-800 transition-all text-white w-full py-2 rounded-md cursor-pointer mt-2"
+            disabled={loading}
+            className="bg-[#0A4D9F] hover:bg-[#083A78] disabled:opacity-50 disabled:cursor-not-allowed transition-all text-white w-full py-3 rounded-xl cursor-pointer mt-2 font-medium shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-[rgba(10,77,159,0.3)]"
           >
             {loading
               ? "Please wait..."
               : state === "register"
               ? "Create Account"
-              : "Login"}
+              : "Sign In"}
           </button>
-        </form>
+        </motion.form>
       )}
-    </div>
+    </motion.div>
   );
 };
 

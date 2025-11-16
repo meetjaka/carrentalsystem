@@ -53,7 +53,7 @@ useEffect(() => {
 
 
   return (
-    <div className="px-4 pt-10 md:px-10 flex-1">
+    <div className="px-4 pt-10 md:px-10 flex-1 bg-[#0A0F14] min-h-screen">
       <Title
         title="Admin Dashboard"
         subTitle="Monitor overall platform performance including total cars, bookings, revenue, and recent activities"
@@ -63,13 +63,13 @@ useEffect(() => {
         {dashboardCards.map((card, index) => (
           <div
             key={index}
-            className="flex gap-2 items-center justify-between p-4 rounded-md border border-borderColor"
+            className="flex gap-2 items-center justify-between p-4 rounded-md border border-[rgba(255,255,255,0.04)] bg-[#121A22]"
           >
             <div>
-              <h1 className="text-xs text-gray-500">{card.title}</h1>
-              <p className="text-lg font-semibold">{card.value}</p>
+              <h1 className="text-xs text-[#8DA0BF]">{card.title}</h1>
+              <p className="text-lg font-semibold text-[#0A4D9F]">{card.value}</p>
             </div>
-            <div className="flex items-center justify-center w-10 h-10 rounded-full bg-primary/10">
+            <div className="flex items-center justify-center w-10 h-10 rounded-full bg-[#0A4D9F]/10">
               <img src={card.icon} alt="" className="h-4 w-4" />
             </div>
           </div>
@@ -78,13 +78,13 @@ useEffect(() => {
 
       <div className="flex flex-wrap items-start gap-6 mb-8 w-full">
         {/* recent booking  */}
-        <div className="p-4 md:p-6 border border-borderColor rounded-md max-w-lg w-full">
-          <h1 className="text-lg font-medium">Recent Bookings</h1>
-          <p className="text-gray-500">Latest customer bookings</p>
+        <div className="p-4 md:p-6 border border-[rgba(255,255,255,0.04)] bg-[#121A22] rounded-md max-w-lg w-full">
+          <h1 className="text-lg font-medium text-[#DCE7F5]">Recent Bookings</h1>
+          <p className="text-[#8DA0BF]">Latest customer bookings</p>
           {data.recentBookings.map((booking, index) => (
             <div key={index} className="flex mt-4 items-center justify-between">
               <div className="flex items-center gap-2">
-                <div className="hidden md:flex items-center justify-center w-12 h-12 rounded-full bg-primary/10">
+                <div className="hidden md:flex items-center justify-center w-12 h-12 rounded-full bg-[#0A4D9F]/10">
                   <img
                     src={assets.listIconColored}
                     className="h-5 w-5"
@@ -92,20 +92,20 @@ useEffect(() => {
                   />
                 </div>
                 <div>
-                  <p>
+                  <p className="text-[#DCE7F5]">
                     {booking.car.brand} {booking.car.model}
                   </p>
-                  <p className="text-sm text-gray-500">
+                  <p className="text-sm text-[#8DA0BF]">
                     {booking.createdAt.split("T")[0]}
                   </p>
                 </div>
               </div>
               <div className="flex items-center gap-2 font-medium">
-                <p className="text-sm text-gray-500">
+                <p className="text-sm text-[#8DA0BF]">
                   {currency}
                   {booking.price}
                 </p>
-                <p className="px-3 py-0.5 border border-borderColor rounded-full text-sm">
+                <p className="px-3 py-0.5 border border-[rgba(255,255,255,0.04)] rounded-full text-sm text-[#8DA0BF]">
                   {booking.status}
                 </p>
               </div>
@@ -113,10 +113,10 @@ useEffect(() => {
           ))}
         </div>
         {/* montly revenue  */}
-        <div className="p-4 md:p-6 mb-6 border border-borderColor rounded-md w-full md:max-w-xs">
-          <h1 className="text-lg font-medium">Monthly Revenue</h1>
-          <p className="text-gray-500">Revenue for current month</p>
-          <p className="text-primary font-semibold text-3xl mt-6">
+        <div className="p-4 md:p-6 mb-6 border border-[rgba(255,255,255,0.04)] bg-[#121A22] rounded-md w-full md:max-w-xs">
+          <h1 className="text-lg font-medium text-[#DCE7F5]">Monthly Revenue</h1>
+          <p className="text-[#8DA0BF]">Revenue for current month</p>
+          <p className="text-[#0A4D9F] font-semibold text-3xl mt-6">
             {currency}
             {data.monthlyRevenue}
           </p>

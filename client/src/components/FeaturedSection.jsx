@@ -15,7 +15,7 @@ const FeaturedSection = () => {
       initial={{ y: 40, opacity: 0 }}
       whileInView={{ y: 0, opacity: 1 }}
       transition={{ duration: 1, ease: "easeOut" }}
-      className="flex flex-col items-center py-24 px-6 md:px-16 lg:px-24 xl:px-32"
+      className="flex flex-col items-center py-24 px-6 md:px-16 lg:px-24 xl:px-32 bg-[#0A0F14]"
     >
       <motion.div
         initial={{ y: 20, opacity: 0 }}
@@ -53,8 +53,7 @@ const FeaturedSection = () => {
           navigate("/cars");
           scrollTo(0, 0);
         }}
-        className="flex items-center justify-center gap-2 px-6 py-2 border
-border-borderColor hover:bg-gray-50 rounded-md mt-18 cursor-pointer"
+        className="flex items-center justify-center gap-2 px-6 py-2 border border-[rgba(255,255,255,0.04)] hover:bg-[#0C2A44] text-[#8DA0BF] hover:text-[#DCE7F5] rounded-xl mt-18 cursor-pointer transition-colors"
       >
         Explore All Cars
         <img src={assets.arrow_icon} alt="arrow" />

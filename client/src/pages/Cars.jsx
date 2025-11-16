@@ -66,7 +66,7 @@ const Cars = () => {
         initial={{ y: 30, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="flex flex-col items-center py-20 bg-light max-md:px-4"
+        className="flex flex-col items-center py-20 bg-[#0A0F14] max-md:px-4"
       >
         <Title
           title="Available Cars"
@@ -76,17 +76,17 @@ const Cars = () => {
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.3 }}
-          className="flex items-center bg-white px-4 mt-6 max-w-140 w-full h-12 rounded-full shadow"
+          className="flex items-center bg-[#121A22] border border-[rgba(255,255,255,0.04)] px-4 mt-6 max-w-140 w-full h-12 rounded-full shadow-[0_8px_24px_rgba(0,0,0,0.6)]"
         >
-          <img src={assets.search_icon} alt="" className="w-4.5 h-4.5 mr-2" />
+          <img src={assets.search_icon} alt="" className="w-4.5 h-4.5 mr-2 brightness-0 invert opacity-60" />
           <input
             onChange={(e) => setInput(e.target.value)}
             type="text"
             value={input}
             placeholder="Search by make, model and car type"
-            className="w-full h-full outline-none text-gray-500"
+            className="w-full h-full outline-none text-[#DCE7F5] placeholder:text-[#8DA0BF] bg-transparent"
           />
-          <img src={assets.filter_icon} alt="" className="w-4.5 h-4.5 ml-2" />
+          <img src={assets.filter_icon} alt="" className="w-4.5 h-4.5 ml-2 brightness-0 invert opacity-60" />
         </motion.div>
       </motion.div>
 
@@ -94,9 +94,9 @@ const Cars = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5, delay: 0.6 }}
-        className="px-6 md:px-16 lg:px-24 xl:px-32 mt-10"
+        className="px-6 md:px-16 lg:px-24 xl:px-32 mt-10 bg-[#0A0F14]"
       >
-        <p className="text-gray-500 xl:px-20 max-w-7xl mx-auto">
+        <p className="text-[#8DA0BF] xl:px-20 max-w-7xl mx-auto">
           Showing {filteredCars.length} Cars
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-4 xl:px-20 max-w-7xl mx-auto">

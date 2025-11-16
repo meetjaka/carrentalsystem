@@ -6,32 +6,29 @@ import { motion } from "motion/react";
 const Testimonial = () => {
   const testimonials = [
     {
-      name: "Emma Rodriguez",
-      location: "Barcelona, Spain",
-      image: assets.testimonial_image_1,
+      name: "Rajesh Kumar",
+      location: "Mumbai, Maharashtra",
       testimonial:
-        "I have rented cars from various companies, but the expeirece with CarRental was exceptional",
+        "NextDrive se car rent karne ka experience bahut accha raha. Service bahut professional thi aur car bilkul saaf-safai se mili. Next time bhi yahi se book karunga!",
     },
     {
-      name: "John Smith",
-      location: "New York",
-      image: assets.testimonial_image_2,
+      name: "Priya Sharma",
+      location: "Delhi, NCR",
       testimonial:
-        "CarRental made my trip so much easier. The car was deleivered right to my door, and the customer service was fantastic",
+        "Maine NextDrive se car book kiya tha Goa trip ke liye. Car delivery time par mili aur customer support team ne har query ka jawaab diya. Highly recommend karta hoon!",
     },
     {
-      name: "Ava Johnson",
-      location: "Sydney",
-      image: assets.testimonial_image_1,
+      name: "Amit Patel",
+      location: "Bangalore, Karnataka",
       testimonial:
-        "CarRental made my trip so much easier. The car was deleivered right to my door, and the customer service was fantastic",
+        "NextDrive ki service bahut reliable hai. Car condition excellent thi aur pricing bhi competitive hai. Family trip ke liye perfect option hai. Dhanyawad NextDrive team!",
     },
   ];
   return (
-    <div className="py-28 px-8 md:py-16 lg:px-24 xl:px-44">
+    <div className="py-28 px-8 md:py-16 lg:px-24 xl:px-44 bg-[#0A0F14]">
       <Title
         title="What Our Customers Say"
-        subTitle="Discover why discrening travelers chose StayVenture for their luxury accomodations around the world."
+        subTitle="Discover why thousands of Indian travelers trust NextDrive for their car rental needs across India."
       />
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-18">
@@ -42,27 +39,20 @@ const Testimonial = () => {
             transition={{ duration: 0.6, delay: index * 0.2, ease: "easeOut" }}
             viewport={{ once: true, amount: 0.3 }}
             key={index}
-            className="bg-white p-6 rounded-xl shadow-lg  max-w-xs hover:translate-y-1 transition-all duration-500"
+            className="bg-[#121A22] border border-[rgba(255,255,255,0.03)] p-6 rounded-xl shadow-[0_8px_24px_rgba(0,0,0,0.6)] max-w-xs hover:translate-y-1 transition-all duration-500"
           >
-            <div className="flex items-center gap-3">
-              <img
-                className="w-12 h-12 rounded-full"
-                src={testimonial.image}
-                alt={testimonial.name}
-              />
-              <div>
-                <p className=" text-xl">{testimonial.name}</p>
-                <p className="text-gray-500">{testimonial.location}</p>
-              </div>
+            <div className="mb-3">
+              <p className="text-lg font-semibold text-[#DCE7F5]">{testimonial.name}</p>
+              <p className="text-sm text-[#8DA0BF]">{testimonial.location}</p>
             </div>
             <div className="flex items-center gap-1 mt-4">
               {Array(5)
                 .fill(0)
                 .map((_, index) => (
-                  <img key={index} src={assets.star_icon} alt="star_icon" />
+                  <img key={index} src={assets.star_icon} alt="star_icon" className="brightness-0 invert opacity-60" />
                 ))}
             </div>
-            <p className="text-gray-500 max-w-90 mt-4 font-light">
+            <p className="text-[#8DA0BF] max-w-90 mt-4 font-light">
               "{testimonial.testimonial}"
             </p>
           </motion.div>

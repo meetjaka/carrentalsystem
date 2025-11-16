@@ -1,0 +1,166 @@
+SAPPHIRE EXECUTIVE THEME - STYLE SPECIFICATION
+==============================================
+
+COLOR PALETTE
+-------------
+Primary (CTA / buttons / highlights): #0A4D9F
+Primary Hover: #083A78
+Background (page): #0A0F14
+Surface / Cards: #121A22
+Surface Light (elevated surfaces): #141C26
+Muted Text: #8DA0BF
+Main Text: #DCE7F5
+Accent (subtle): #0C2A44
+Success (status only): #16A34A
+Danger (status only): #EF4444
+
+BORDERS
+-------
+Default Border: 1px solid rgba(255, 255, 255, 0.04)
+Subtle Border: 1px solid rgba(255, 255, 255, 0.03)
+Card Border: 1px solid rgba(255, 255, 255, 0.03)
+
+BORDER RADIUS
+-------------
+Buttons: 12px
+Cards: 16px
+Search Pill: 999px (fully rounded) or 14px (slightly rounded)
+Inputs: 12px
+Badges: 6px
+Spec Items: 8px
+
+SHADOWS
+-------
+Card Shadow: 0 8px 24px rgba(0, 0, 0, 0.6)
+Card Hover Shadow: 0 12px 32px rgba(0, 0, 0, 0.7)
+Inner Shadow (cards): inset 0 2px 8px rgba(2, 8, 16, 0.6)
+Mobile: Reduce shadow intensity by 20-30%
+
+FOCUS STATES
+------------
+Focus Ring: 2px solid rgba(10, 77, 159, 0.3)
+Focus Offset: 2px
+All interactive elements must have visible focus states for keyboard navigation
+
+TYPOGRAPHY
+----------
+Font Family: Inter (primary), Roboto (fallback)
+Base Font Size: 16px
+Line Height: 1.5
+Letter Spacing: 0.01em (base), 0.2px (headings)
+
+Heading Sizes:
+- Hero H1: 42px, weight 700, letter-spacing 0.2px
+- H2: 28px, weight 700, letter-spacing 0.2px
+- H3: 20px, weight 700
+- Body: 16px, weight 400
+- Small / Meta: 14px, weight 400
+- Labels: 12px, weight 500
+
+COMPONENT SPECIFICATIONS
+------------------------
+
+NAVBAR
+- Background: Transparent over dark page
+- Border: 1px solid rgba(255, 255, 255, 0.04)
+- Nav Links: Muted text (#8DA0BF) by default
+- Active Link: Primary color (#0A4D9F)
+- Hover: Main text color (#DCE7F5)
+- Avatar Ring: 2px solid #0A4D9F when active
+
+HERO SECTION
+- H1: Main text color (#DCE7F5), 42px, centered, large spacing
+- Background: Page background (#0A0F14)
+
+SEARCH PILL
+- Background: Surface (#121A22) or Surface Light (#141C26)
+- Border: 1px solid rgba(255, 255, 255, 0.04)
+- Border Radius: 999px (pill) or 14px
+- Input Placeholder: Muted color (#8DA0BF)
+- CTA Button: Solid primary (#0A4D9F), white text, 12px radius
+- CTA Hover: Primary hover (#083A78)
+
+BUTTONS (PRIMARY)
+- Background: #0A4D9F
+- Text: #FFFFFF
+- Border Radius: 12px
+- Hover: #083A78
+- Focus: 2px solid rgba(10, 77, 159, 0.3), 2px offset
+- Padding: 12px 24px (standard), 12px 32px (CTA)
+
+BUTTONS (SECONDARY)
+- Background: Transparent
+- Text: #0A4D9F
+- Border: 1px solid #0A4D9F
+- Border Radius: 12px
+- Hover: Background #0A4D9F, text #FFFFFF
+
+CARDS / LISTINGS
+- Background: Surface (#121A22)
+- Border: 1px solid rgba(255, 255, 255, 0.03)
+- Border Radius: 16px
+- Shadow: 0 8px 24px rgba(0, 0, 0, 0.6)
+- Inner Shadow: inset 0 2px 8px rgba(2, 8, 16, 0.6) (subtle)
+- Hover Shadow: 0 12px 32px rgba(0, 0, 0, 0.7)
+- Title: Main text color (#DCE7F5)
+- Meta: Muted color (#8DA0BF)
+
+SIDEBAR / ADMIN
+- Surface Panels: #0F161C
+- Active Link: Thin left 3px bar in primary (#0A4D9F) OR 8% primary background tint
+- Inactive Links: Muted text (#8DA0BF)
+- Consistent method: Use left border indicator (3px solid #0A4D9F)
+
+FORMS / INPUTS
+- Background: #0F161C
+- Placeholder: Muted (#8DA0BF)
+- Border: 1px solid rgba(255, 255, 255, 0.04)
+- Border Radius: 12px
+- Focus: Primary ring (2px solid rgba(10, 77, 159, 0.3))
+- Text: Main text color (#DCE7F5)
+
+ICONS
+- Default Tint: Muted (#8DA0BF)
+- Interactive Icons Hover: Primary (#0A4D9F)
+- Single-color strokes only (no multi-color or duotone)
+- Use CSS filter or SVG fill to apply tints
+
+IMAGES
+- Subtle dark vignette or tiny desaturation (max 6%)
+- Filter: brightness(0.94) contrast(1.02) recommended
+- Keep images natural and premium
+- Ensure images sit naturally on dark backgrounds
+
+STATUS BADGES
+- Success: #16A34A background, white text
+- Danger: #EF4444 background, white text
+- Border Radius: 6px
+- Padding: 6px 12px
+- Font Size: 12px, weight 600
+
+SPECIFICATION ITEMS
+- Background: Accent (#0C2A44)
+- Text: Muted (#8DA0BF)
+- Border Radius: 8px
+- Padding: 8px 12px
+- Font Size: 12px
+
+ACCESSIBILITY
+-------------
+- Text contrast must meet WCAG AA standards
+- Primary text (#DCE7F5) on background (#0A0F14): Ratio 12.6:1 (AAA compliant)
+- Muted text (#8DA0BF) on background (#0A0F14): Ratio 4.5:1 (AA compliant)
+- All interactive elements must have visible focus states
+- Focus ring: 2-3px solid with 10% primary tint (rgba(10, 77, 159, 0.3))
+
+RULES
+-----
+- NO GRADIENTS anywhere - use solid colors only
+- No multi-color/duotone buttons or two-tone fills
+- Buttons use one solid color with slightly darker solid on hover
+- Keep existing component sizes and layout
+- Only restyle surfaces, typography color, spacing micro-adjustments (±8px)
+- Maintain premium, corporate, modern tone
+- Changes must be restrained and consistent
+- UI must read as established, trustworthy brand (premium fintech + luxury car rental)
+

@@ -31,16 +31,23 @@ const Sidebar = () => {
     <div className="relative min-h-screen md:flex flex-col items-center pt-8 max-w-13 md:max-w-60 w-full border-r border-borderColor text-sm">
       <div className="group relative">
         <label htmlFor="image">
-          <img
-            className="h-9 md:h-14 w-9 md:w-14 rounded-full mx-auto"
-            src={
-              image
-                ? URL.createObjectURL(image)
-                : user?.image ||
-                  "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-            }
-            alt=""
-          />
+          {image ? (
+            <img
+              className="h-9 md:h-14 w-9 md:w-14 rounded-full mx-auto object-cover"
+              src={URL.createObjectURL(image)}
+              alt=""
+            />
+          ) : user?.image ? (
+            <img
+              className="h-9 md:h-14 w-9 md:w-14 rounded-full mx-auto object-cover"
+              src={user.image}
+              alt=""
+            />
+          ) : (
+            <div className="h-9 md:h-14 w-9 md:w-14 rounded-full mx-auto bg-[#121A22] flex items-center justify-center text-[#0A4D9F] font-semibold text-lg md:text-2xl">
+              {user?.name?.charAt(0)?.toUpperCase() || "U"}
+            </div>
+          )}
           <input
             type="file"
             id="image"

@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sapphire Executive - Search Results Mockup</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0A0F14;
+            color: #DCE7F5;
+            line-height: 1.5;
+            letter-spacing: 0.01em;
+            padding: 0;
+            margin: 0;
+        }
+        
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 50;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 64px;
+            background: transparent;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            color: #8DA0BF;
+        }
+        
+        .nav-links a {
+            color: #8DA0BF;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a.active {
+            color: #0A4D9F;
+        }
+        
+        /* Header Section */
+        .header-section {
+            padding: 120px 32px 48px;
+            background: #0A0F14;
+            text-align: center;
+        }
+        
+        .header-section h1 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #DCE7F5;
+            letter-spacing: 0.2px;
+            margin-bottom: 8px;
+        }
+        
+        .header-section p {
+            font-size: 16px;
+            color: #8DA0BF;
+            margin-bottom: 24px;
+        }
+        
+        /* Search Bar */
+        .search-bar {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #121A22;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 14px;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+        }
+        
+        .search-bar input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: #DCE7F5;
+            font-size: 16px;
+            outline: none;
+        }
+        
+        .search-bar input::placeholder {
+            color: #8DA0BF;
+        }
+        
+        .search-bar img {
+            width: 20px;
+            height: 20px;
+            opacity: 0.6;
+            filter: brightness(0) invert(1);
+        }
+        
+        /* Results Section */
+        .results-section {
+            padding: 32px;
+            background: #0A0F14;
+        }
+        
+        .results-header {
+            max-width: 1200px;
+            margin: 0 auto 32px;
+            color: #8DA0BF;
+            font-size: 14px;
+        }
+        
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 32px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .car-card {
+            background: #121A22;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .car-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.7);
+        }
+        
+        .car-image-container {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .car-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.94) contrast(1.02);
+            transition: transform 0.7s;
+        }
+        
+        .car-card:hover .car-image {
+            transform: scale(1.1);
+        }
+        
+        .car-badge {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            padding: 6px 12px;
+            background: #16A34A;
+            color: #FFFFFF;
+            font-size: 12px;
+            font-weight: 600;
+            border-radius: 6px;
+        }
+        
+        .car-badge.unavailable {
+            background: #EF4444;
+        }
+        
+        .car-price {
+            position: absolute;
+            bottom: 16px;
+            right: 16px;
+            background: rgba(0, 0, 0, 0.8);
+            color: #FFFFFF;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 20px;
+        }
+        
+        .car-info {
+            padding: 24px;
+        }
+        
+        .car-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #DCE7F5;
+            margin-bottom: 8px;
+        }
+        
+        .car-meta {
+            font-size: 14px;
+            color: #8DA0BF;
+            margin-bottom: 16px;
+        }
+        
+        .car-specs {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+        
+        .spec-item {
+            background: #0C2A44;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            color: #8DA0BF;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .car-actions {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .btn-primary {
+            flex: 1;
+            padding: 12px;
+            background: #0A4D9F;
+            color: #FFFFFF;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .btn-primary:hover {
+            background: #083A78;
+        }
+        
+        .btn-primary:focus {
+            outline: 2px solid rgba(10, 77, 159, 0.3);
+            outline-offset: 2px;
+        }
+        
+        .btn-secondary {
+            padding: 12px 24px;
+            background: transparent;
+            color: #0A4D9F;
+            border: 1px solid #0A4D9F;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-secondary:hover {
+            background: #0A4D9F;
+            color: #FFFFFF;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div style="font-size: 24px; font-weight: 700; color: #DCE7F5;">LOGO</div>
+        <div class="nav-links">
+            <a href="#">Home</a>
+            <a href="#" class="active">Cars</a>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+        </div>
+        <button style="padding: 8px 32px; background: #0A4D9F; color: #FFFFFF; border: none; border-radius: 12px; cursor: pointer;">Login</button>
+    </nav>
+    
+    <!-- Header Section -->
+    <section class="header-section">
+        <h1>Available Cars</h1>
+        <p>Browse our selection of premium vehicles available for your next adventure</p>
+        
+        <!-- Search Bar -->
+        <div class="search-bar">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%238DA0BF' stroke-width='2'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.35-4.35'/%3E%3C/svg%3E" alt="search">
+            <input type="text" placeholder="Search by make, model and car type">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%238DA0BF' stroke-width='2'%3E%3Cpath d='M22 3H2l8 9.46V19l4 2v-8.54L22 3z'/%3E%3C/svg%3E" alt="filter">
+        </div>
+    </section>
+    
+    <!-- Results Section -->
+    <section class="results-section">
+        <div class="results-header">
+            Showing 12 Cars
+        </div>
+        
+        <div class="results-grid">
+            <!-- Card 1 -->
+            <div class="car-card">
+                <div class="car-image-container">
+                    <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=400" alt="Car" class="car-image">
+                    <span class="car-badge">Available Now</span>
+                    <div class="car-price">$120/day</div>
+                </div>
+                <div class="car-info">
+                    <h3 class="car-title">BMW 5 Series</h3>
+                    <p class="car-meta">Sedan • 2023</p>
+                    <div class="car-specs">
+                        <div class="spec-item">👥 5 Seats</div>
+                        <div class="spec-item">⛽ Petrol</div>
+                        <div class="spec-item">⚙️ Automatic</div>
+                        <div class="spec-item">📍 New York</div>
+                    </div>
+                    <div class="car-actions">
+                        <button class="btn-primary">Quick Book</button>
+                        <button class="btn-secondary">Details</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Card 2 -->
+            <div class="car-card">
+                <div class="car-image-container">
+                    <img src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=400" alt="Car" class="car-image">
+                    <span class="car-badge">Available Now</span>
+                    <div class="car-price">$150/day</div>
+                </div>
+                <div class="car-info">
+                    <h3 class="car-title">Mercedes E-Class</h3>
+                    <p class="car-meta">Sedan • 2023</p>
+                    <div class="car-specs">
+                        <div class="spec-item">👥 5 Seats</div>
+                        <div class="spec-item">⛽ Petrol</div>
+                        <div class="spec-item">⚙️ Automatic</div>
+                        <div class="spec-item">📍 Los Angeles</div>
+                    </div>
+                    <div class="car-actions">
+                        <button class="btn-primary">Quick Book</button>
+                        <button class="btn-secondary">Details</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Card 3 -->
+            <div class="car-card">
+                <div class="car-image-container">
+                    <img src="https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=400" alt="Car" class="car-image">
+                    <span class="car-badge">Available Now</span>
+                    <div class="car-price">$200/day</div>
+                </div>
+                <div class="car-info">
+                    <h3 class="car-title">Audi A6</h3>
+                    <p class="car-meta">Sedan • 2024</p>
+                    <div class="car-specs">
+                        <div class="spec-item">👥 5 Seats</div>
+                        <div class="spec-item">⛽ Petrol</div>
+                        <div class="spec-item">⚙️ Automatic</div>
+                        <div class="spec-item">📍 Miami</div>
+                    </div>
+                    <div class="car-actions">
+                        <button class="btn-primary">Quick Book</button>
+                        <button class="btn-secondary">Details</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Card 4 -->
+            <div class="car-card">
+                <div class="car-image-container">
+                    <img src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=400" alt="Car" class="car-image">
+                    <span class="car-badge unavailable">Unavailable</span>
+                    <div class="car-price">$180/day</div>
+                </div>
+                <div class="car-info">
+                    <h3 class="car-title">Tesla Model 3</h3>
+                    <p class="car-meta">Electric • 2024</p>
+                    <div class="car-specs">
+                        <div class="spec-item">👥 5 Seats</div>
+                        <div class="spec-item">⚡ Electric</div>
+                        <div class="spec-item">⚙️ Automatic</div>
+                        <div class="spec-item">📍 San Francisco</div>
+                    </div>
+                    <div class="car-actions">
+                        <button class="btn-primary">Quick Book</button>
+                        <button class="btn-secondary">Details</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Card 5 -->
+            <div class="car-card">
+                <div class="car-image-container">
+                    <img src="https://images.unsplash.com/photo-1606664515526-3f1b5f4aedd5?w=400" alt="Car" class="car-image">
+                    <span class="car-badge">Available Now</span>
+                    <div class="car-price">$250/day</div>
+                </div>
+                <div class="car-info">
+                    <h3 class="car-title">Porsche 911</h3>
+                    <p class="car-meta">Sports Car • 2024</p>
+                    <div class="car-specs">
+                        <div class="spec-item">👥 2 Seats</div>
+                        <div class="spec-item">⛽ Petrol</div>
+                        <div class="spec-item">⚙️ Manual</div>
+                        <div class="spec-item">📍 Las Vegas</div>
+                    </div>
+                    <div class="car-actions">
+                        <button class="btn-primary">Quick Book</button>
+                        <button class="btn-secondary">Details</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Card 6 -->
+            <div class="car-card">
+                <div class="car-image-container">
+                    <img src="https://images.unsplash.com/photo-1555215695-3004980ad54e?w=400" alt="Car" class="car-image">
+                    <span class="car-badge">Available Now</span>
+                    <div class="car-price">$140/day</div>
+                </div>
+                <div class="car-info">
+                    <h3 class="car-title">Lexus ES 350</h3>
+                    <p class="car-meta">Sedan • 2023</p>
+                    <div class="car-specs">
+                        <div class="spec-item">👥 5 Seats</div>
+                        <div class="spec-item">⛽ Hybrid</div>
+                        <div class="spec-item">⚙️ Automatic</div>
+                        <div class="spec-item">📍 Seattle</div>
+                    </div>
+                    <div class="car-actions">
+                        <button class="btn-primary">Quick Book</button>
+                        <button class="btn-secondary">Details</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
+

@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sapphire Executive - Homepage Mockup</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0A0F14;
+            color: #DCE7F5;
+            line-height: 1.5;
+            letter-spacing: 0.01em;
+            padding: 0;
+            margin: 0;
+        }
+        
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 50;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 64px;
+            background: transparent;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            color: #8DA0BF;
+        }
+        
+        .nav-links a {
+            color: #8DA0BF;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a.active {
+            color: #0A4D9F;
+        }
+        
+        .nav-links a:hover {
+            color: #DCE7F5;
+        }
+        
+        .login-btn {
+            padding: 8px 32px;
+            background: #0A4D9F;
+            color: #FFFFFF;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background 0.3s;
+        }
+        
+        .login-btn:hover {
+            background: #083A78;
+        }
+        
+        .login-btn:focus {
+            outline: 2px solid rgba(10, 77, 159, 0.3);
+            outline-offset: 2px;
+        }
+        
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 56px;
+            padding: 80px 32px 32px;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 42px;
+            font-weight: 700;
+            color: #DCE7F5;
+            letter-spacing: 0.2px;
+            margin-bottom: 16px;
+        }
+        
+        /* Search Pill */
+        .search-pill {
+            background: #121A22;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 999px;
+            padding: 24px 32px;
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            max-width: 900px;
+            width: 100%;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+        }
+        
+        .search-field {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        
+        .search-field label {
+            font-size: 12px;
+            color: #8DA0BF;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .search-field select,
+        .search-field input {
+            background: transparent;
+            border: none;
+            color: #DCE7F5;
+            font-size: 16px;
+            outline: none;
+        }
+        
+        .search-field select option {
+            background: #0F161C;
+            color: #DCE7F5;
+        }
+        
+        .search-cta {
+            padding: 12px 32px;
+            background: #0A4D9F;
+            color: #FFFFFF;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: background 0.3s;
+        }
+        
+        .search-cta:hover {
+            background: #083A78;
+        }
+        
+        .search-cta:focus {
+            outline: 2px solid rgba(10, 77, 159, 0.3);
+            outline-offset: 2px;
+        }
+        
+        /* Car Cards Grid */
+        .cards-section {
+            padding: 80px 32px;
+            background: #0A0F14;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+        
+        .section-title h2 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #DCE7F5;
+            letter-spacing: 0.2px;
+            margin-bottom: 8px;
+        }
+        
+        .section-title p {
+            font-size: 16px;
+            color: #8DA0BF;
+        }
+        
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .car-card {
+            background: #121A22;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .car-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.7);
+        }
+        
+        .car-image-container {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .car-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.94) contrast(1.02);
+            transition: transform 0.7s;
+        }
+        
+        .car-card:hover .car-image {
+            transform: scale(1.1);
+        }
+        
+        .car-badge {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            padding: 6px 12px;
+            background: #16A34A;
+            color: #FFFFFF;
+            font-size: 12px;
+            font-weight: 600;
+            border-radius: 6px;
+        }
+        
+        .car-price {
+            position: absolute;
+            bottom: 16px;
+            right: 16px;
+            background: rgba(0, 0, 0, 0.8);
+            color: #FFFFFF;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 20px;
+        }
+        
+        .car-info {
+            padding: 24px;
+        }
+        
+        .car-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #DCE7F5;
+            margin-bottom: 8px;
+        }
+        
+        .car-meta {
+            font-size: 14px;
+            color: #8DA0BF;
+            margin-bottom: 16px;
+        }
+        
+        .car-specs {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+        
+        .spec-item {
+            background: #0C2A44;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            color: #8DA0BF;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .car-actions {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .btn-primary {
+            flex: 1;
+            padding: 12px;
+            background: #0A4D9F;
+            color: #FFFFFF;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .btn-primary:hover {
+            background: #083A78;
+        }
+        
+        .btn-secondary {
+            padding: 12px 24px;
+            background: transparent;
+            color: #0A4D9F;
+            border: 1px solid #0A4D9F;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-secondary:hover {
+            background: #0A4D9F;
+            color: #FFFFFF;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div style="font-size: 24px; font-weight: 700; color: #DCE7F5;">LOGO</div>
+        <div class="nav-links">
+            <a href="#" class="active">Home</a>
+            <a href="#">Cars</a>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+        </div>
+        <button class="login-btn">Login</button>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Luxury cars on Rent</h1>
+        
+        <!-- Search Pill -->
+        <form class="search-pill">
+            <div class="search-field">
+                <label>Pickup Location</label>
+                <select>
+                    <option>Select Location</option>
+                    <option>New York</option>
+                    <option>Los Angeles</option>
+                </select>
+            </div>
+            <div class="search-field">
+                <label>Pick-up Date</label>
+                <input type="date" />
+            </div>
+            <div class="search-field">
+                <label>Return Date</label>
+                <input type="date" />
+            </div>
+            <button type="submit" class="search-cta">Search</button>
+        </form>
+    </section>
+    
+    <!-- Featured Cars Section -->
+    <section class="cards-section">
+        <div class="section-title">
+            <h2>Featured Vehicles</h2>
+            <p>Explore our selection of premium vehicles available for your next adventure</p>
+        </div>
+        
+        <div class="cards-grid">
+            <!-- Card 1 -->
+            <div class="car-card">
+                <div class="car-image-container">
+                    <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=400" alt="Car" class="car-image">
+                    <span class="car-badge">Available Now</span>
+                    <div class="car-price">$120/day</div>
+                </div>
+                <div class="car-info">
+                    <h3 class="car-title">BMW 5 Series</h3>
+                    <p class="car-meta">Sedan • 2023</p>
+                    <div class="car-specs">
+                        <div class="spec-item">👥 5 Seats</div>
+                        <div class="spec-item">⛽ Petrol</div>
+                        <div class="spec-item">⚙️ Automatic</div>
+                        <div class="spec-item">📍 New York</div>
+                    </div>
+                    <div class="car-actions">
+                        <button class="btn-primary">Quick Book</button>
+                        <button class="btn-secondary">Details</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Card 2 -->
+            <div class="car-card">
+                <div class="car-image-container">
+                    <img src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=400" alt="Car" class="car-image">
+                    <span class="car-badge">Available Now</span>
+                    <div class="car-price">$150/day</div>
+                </div>
+                <div class="car-info">
+                    <h3 class="car-title">Mercedes E-Class</h3>
+                    <p class="car-meta">Sedan • 2023</p>
+                    <div class="car-specs">
+                        <div class="spec-item">👥 5 Seats</div>
+                        <div class="spec-item">⛽ Petrol</div>
+                        <div class="spec-item">⚙️ Automatic</div>
+                        <div class="spec-item">📍 Los Angeles</div>
+                    </div>
+                    <div class="car-actions">
+                        <button class="btn-primary">Quick Book</button>
+                        <button class="btn-secondary">Details</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Card 3 -->
+            <div class="car-card">
+                <div class="car-image-container">
+                    <img src="https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=400" alt="Car" class="car-image">
+                    <span class="car-badge">Available Now</span>
+                    <div class="car-price">$200/day</div>
+                </div>
+                <div class="car-info">
+                    <h3 class="car-title">Audi A6</h3>
+                    <p class="car-meta">Sedan • 2024</p>
+                    <div class="car-specs">
+                        <div class="spec-item">👥 5 Seats</div>
+                        <div class="spec-item">⛽ Petrol</div>
+                        <div class="spec-item">⚙️ Automatic</div>
+                        <div class="spec-item">📍 Miami</div>
+                    </div>
+                    <div class="car-actions">
+                        <button class="btn-primary">Quick Book</button>
+                        <button class="btn-secondary">Details</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
+

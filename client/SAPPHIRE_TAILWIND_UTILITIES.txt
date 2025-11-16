@@ -1,0 +1,78 @@
+SAPPHIRE EXECUTIVE - TAILWIND UTILITY CLASSES
+==============================================
+
+BACKGROUND COLORS
+-----------------
+Page Background: bg-[#0A0F14] or bg-bg
+Card/Surface: bg-[#121A22] or bg-surface
+Elevated Surface: bg-[#141C26] or bg-surface-light
+Sidebar/Forms: bg-[#0F161C]
+Accent Background: bg-[#0C2A44] or bg-accent
+
+TEXT COLORS
+-----------
+Main Text: text-[#DCE7F5] or text-text
+Muted Text: text-[#8DA0BF] or text-muted
+Primary Text: text-[#0A4D9F] or text-primary
+Success Text: text-[#16A34A] or text-success
+Danger Text: text-[#EF4444] or text-danger
+
+BUTTONS
+-------
+Primary Button: bg-primary hover:bg-primary-hover text-white rounded-xl px-6 py-3 font-semibold focus:outline-none focus:ring-2 focus:ring-primary/30 focus:ring-offset-2 focus:ring-offset-bg transition-colors
+Secondary Button: bg-transparent border border-primary text-primary hover:bg-primary hover:text-white rounded-xl px-6 py-3 font-semibold transition-all
+
+CARDS
+-----
+Card Container: bg-surface border border-[rgba(255,255,255,0.03)] rounded-2xl shadow-sapphire hover:shadow-sapphire-lg transition-all
+Card Title: text-text text-xl font-bold
+Card Meta: text-muted text-sm
+
+INPUTS / FORMS
+--------------
+Input Field: bg-[#0F161C] border border-[rgba(255,255,255,0.04)] rounded-xl px-4 py-3 text-text placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-primary/30 focus:ring-offset-2 focus:ring-offset-bg
+
+NAVBAR
+------
+Navbar: bg-transparent border-b border-[rgba(255,255,255,0.04)]
+Nav Link: text-muted hover:text-text transition-colors
+Active Nav Link: text-primary
+
+SEARCH PILL
+-----------
+Search Container: bg-surface border border-[rgba(255,255,255,0.04)] rounded-full px-8 py-6 shadow-sapphire
+Search Input: bg-transparent text-text placeholder:text-muted outline-none
+
+BADGES / STATUS
+---------------
+Success Badge: bg-success text-white rounded-md px-3 py-1.5 text-xs font-semibold
+Danger Badge: bg-danger text-white rounded-md px-3 py-1.5 text-xs font-semibold
+
+SPEC ITEMS
+----------
+Spec Container: bg-accent text-muted rounded-lg px-3 py-2 text-xs
+
+SHADOWS
+-------
+Card Shadow: shadow-sapphire (0 8px 24px rgba(0,0,0,0.6))
+Card Hover: shadow-sapphire-lg (0 12px 32px rgba(0,0,0,0.7))
+Inner Shadow: shadow-sapphire-inner (inset 0 2px 8px rgba(2,8,16,0.6))
+
+TYPOGRAPHY
+----------
+Hero H1: text-[42px] font-bold text-text tracking-[0.2px]
+H2: text-[28px] font-bold text-text tracking-[0.2px]
+H3: text-xl font-bold text-text
+Body: text-base text-text leading-relaxed
+Meta: text-sm text-muted
+
+IMAGES
+------
+Car Image: brightness-[0.94] contrast-[1.02] transition-transform duration-700
+Car Image Hover: group-hover:scale-110
+
+SIDEBAR ACTIVE STATE
+--------------------
+Active Link: border-l-3 border-primary bg-primary/8 text-primary
+Inactive Link: text-muted
+
