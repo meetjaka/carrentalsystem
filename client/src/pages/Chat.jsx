@@ -13,6 +13,8 @@ const Chat = () => {
   const [ownerInfo, setOwnerInfo] = useState(null);
   const [loading, setLoading] = useState(true);
   const messagesEndRef = useRef(null);
+  const pollingIntervalRef = useRef(null);
+  const lastMessageIdRef = useRef(null);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -22,66 +24,93 @@ const Chat = () => {
     scrollToBottom();
   }, [messages]);
 
+  const markMessagesAsRead = async () => {
+    try {
+      const chatId = [user._id, ownerId].sort().join("_");
+      await axios.post("/api/chat/mark-read", {
+        chatId,
+        userId: user._id,
+      });
+    } catch {
+      console.log("Failed to mark messages as read");
+    }
+  };
+
+  const fetchOwnerInfo = async () => {
+    try {
+      const { data } = await axios.get(`/api/user/user/${ownerId}`);
+      if (data.success) {
+        setOwnerInfo(data.user);
+      } else {
+        setOwnerInfo({ name: "Car Owner", image: "" });
+      }
+    } catch {
+      setOwnerInfo({ name: "Car Owner", image: "" });
+    }
+  };
+
+  const fetchMessages = async (isPolling = false) => {
+    try {
+      if (!isPolling) setLoading(true);
+      const { data } = await axios.get(
+        `/api/chat/messages/${user._id}/${ownerId}`
+      );
+      if (data.success) {
+        const newMessages = data.messages;
+
+        // Check if there are new messages
+        if (newMessages.length > 0) {
+          const latestMessageId = newMessages[newMessages.length - 1]._id;
+
+          if (lastMessageIdRef.current !== latestMessageId) {
+            setMessages(newMessages);
+            lastMessageIdRef.current = latestMessageId;
+
+            // Mark messages as read
+            markMessagesAsRead();
+          }
+
+          if (!ownerInfo) {
+            const owner =
+              newMessages[0].sender._id === ownerId
+                ? newMessages[0].sender
+                : newMessages[0].receiver;
+            setOwnerInfo(owner);
+          }
+        } else if (!ownerInfo) {
+          // Fetch owner info separately if no messages exist
+          fetchOwnerInfo();
+        }
+      }
+    } catch (error) {
+      if (!isPolling) {
+        toast.error("Failed to load messages");
+      }
+    } finally {
+      if (!isPolling) setLoading(false);
+    }
+  };
+
   useEffect(() => {
     if (!user) {
       navigate("/");
       return;
     }
 
-    const fetchMessages = async () => {
-      try {
-        setLoading(true);
-        const { data } = await axios.get(
-          `/api/chat/messages/${user._id}/${ownerId}`
-        );
-        if (data.success) {
-          setMessages(data.messages);
-          // Mark messages as read
-          if (data.messages.length > 0) {
-            markMessagesAsRead();
-            const owner =
-              data.messages[0].sender._id === ownerId
-                ? data.messages[0].sender
-                : data.messages[0].receiver;
-            setOwnerInfo(owner);
-          } else {
-            // Fetch owner info separately if no messages exist
-            fetchOwnerInfo();
-          }
-        }
-      } catch {
-        toast.error("Failed to load messages");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    const markMessagesAsRead = async () => {
-      try {
-        const chatId = [user._id, ownerId].sort().join("_");
-        await axios.post("/api/chat/mark-read", {
-          chatId,
-          userId: user._id,
-        });
-      } catch {
-        console.log("Failed to mark messages as read");
-      }
-    };
-
-    const fetchOwnerInfo = async () => {
-      try {
-        const { data } = await axios.get(`/api/user/user/${ownerId}`);
-        if (data.success) {
-          setOwnerInfo(data.user);
-        } else {
-          setOwnerInfo({ name: "Car Owner", image: "" });
-        }
-      } catch {
-        setOwnerInfo({ name: "Car Owner", image: "" });
-      }
-    };
-
+    // Initial fetch
     fetchMessages();
+
+    // Start polling for new messages every 2 seconds
+    pollingIntervalRef.current = setInterval(() => {
+      fetchMessages(true);
+    }, 2000);
+
+    // Cleanup on unmount
+    return () => {
+      if (pollingIntervalRef.current) {
+        clearInterval(pollingIntervalRef.current);
+      }
+    };
   }, [user, ownerId, axios, navigate]);
 
   const sendMessage = async (e) => {
@@ -215,8 +244,8 @@ const Chat = () => {
                   }`}
                 >
                   {/* Avatar for received messages */}
-                  {showAvatar && (
-                    ownerInfo?.image ? (
+                  {showAvatar &&
+                    (ownerInfo?.image ? (
                       <img
                         src={ownerInfo.image}
                         alt="sender"
@@ -226,8 +255,7 @@ const Chat = () => {
                       <div className="w-7 h-7 rounded-full bg-[#121A22] flex items-center justify-center text-[#0A4D9F] font-semibold text-xs mb-1">
                         {ownerInfo?.name?.charAt(0)?.toUpperCase() || "O"}
                       </div>
-                    )
-                  )}
+                    ))}
                   {!showAvatar && !isOwn && <div className="w-7"></div>}
 
                   <div className="flex flex-col">

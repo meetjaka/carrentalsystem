@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppContext } from "../context/AppContext";
 import { assets } from "../assets/assets";
@@ -9,6 +9,69 @@ const ChatList = () => {
   const navigate = useNavigate();
   const [chats, setChats] = useState([]);
   const [loading, setLoading] = useState(true);
+  const pollingIntervalRef = useRef(null);
+
+  const fetchChats = async (isPolling = false) => {
+    try {
+      if (!isPolling) setLoading(true);
+      const { data } = await axios.get(`/api/chat/user/${user._id}`);
+      if (data.success) {
+        // Process chats to ensure unique conversations and get unread counts
+        const uniqueChats = {};
+
+        data.chats.forEach((chat) => {
+          const partnerId = chat.partnerId;
+          if (
+            !uniqueChats[partnerId] ||
+            new Date(chat.latestMessage?.createdAt) >
+              new Date(uniqueChats[partnerId].latestMessage?.createdAt)
+          ) {
+            uniqueChats[partnerId] = {
+              ...chat,
+              unreadCount: 0, // Will be calculated separately
+            };
+          }
+        });
+
+        // Get unread message counts for each chat
+        const chatsWithUnread = await Promise.all(
+          Object.values(uniqueChats).map(async (chat) => {
+            try {
+              const { data: messagesData } = await axios.get(
+                `/api/chat/messages/${user._id}/${chat.partnerId}`
+              );
+              if (messagesData.success) {
+                const unreadCount = messagesData.messages.filter(
+                  (msg) => msg.sender._id !== user._id && !msg.read
+                ).length;
+                return { ...chat, unreadCount };
+              }
+              return chat;
+            } catch (error) {
+              console.error("Error fetching unread count:", error);
+              return chat;
+            }
+          })
+        );
+
+        // Sort by latest message date
+        chatsWithUnread.sort(
+          (a, b) =>
+            new Date(b.latestMessage?.createdAt || 0) -
+            new Date(a.latestMessage?.createdAt || 0)
+        );
+
+        setChats(chatsWithUnread);
+      }
+    } catch (error) {
+      if (!isPolling) {
+        console.error("Error fetching chats:", error);
+        toast.error("Failed to load chats");
+      }
+    } finally {
+      if (!isPolling) setLoading(false);
+    }
+  };
 
   useEffect(() => {
     if (!user) {
@@ -16,67 +79,20 @@ const ChatList = () => {
       return;
     }
 
-    const fetchChats = async () => {
-      try {
-        setLoading(true);
-        const { data } = await axios.get(`/api/chat/user/${user._id}`);
-        if (data.success) {
-          // Process chats to ensure unique conversations and get unread counts
-          const uniqueChats = {};
+    // Initial fetch
+    fetchChats();
 
-          data.chats.forEach((chat) => {
-            const partnerId = chat.partnerId;
-            if (
-              !uniqueChats[partnerId] ||
-              new Date(chat.latestMessage?.createdAt) >
-                new Date(uniqueChats[partnerId].latestMessage?.createdAt)
-            ) {
-              uniqueChats[partnerId] = {
-                ...chat,
-                unreadCount: 0, // Will be calculated separately
-              };
-            }
-          });
+    // Start polling for new messages every 3 seconds
+    pollingIntervalRef.current = setInterval(() => {
+      fetchChats(true);
+    }, 3000);
 
-          // Get unread message counts for each chat
-          const chatsWithUnread = await Promise.all(
-            Object.values(uniqueChats).map(async (chat) => {
-              try {
-                const { data: messagesData } = await axios.get(
-                  `/api/chat/messages/${user._id}/${chat.partnerId}`
-                );
-                if (messagesData.success) {
-                  const unreadCount = messagesData.messages.filter(
-                    (msg) => msg.sender._id !== user._id && !msg.read
-                  ).length;
-                  return { ...chat, unreadCount };
-                }
-                return chat;
-              } catch (error) {
-                console.error("Error fetching unread count:", error);
-                return chat;
-              }
-            })
-          );
-
-          // Sort by latest message date
-          chatsWithUnread.sort(
-            (a, b) =>
-              new Date(b.latestMessage?.createdAt || 0) -
-              new Date(a.latestMessage?.createdAt || 0)
-          );
-
-          setChats(chatsWithUnread);
-        }
-      } catch (error) {
-        console.error("Error fetching chats:", error);
-        toast.error("Failed to load chats");
-      } finally {
-        setLoading(false);
+    // Cleanup on unmount
+    return () => {
+      if (pollingIntervalRef.current) {
+        clearInterval(pollingIntervalRef.current);
       }
     };
-
-    fetchChats();
   }, [user, axios, navigate]);
 
   if (loading) {
@@ -139,7 +155,9 @@ const ChatList = () => {
                   <div className="flex items-center justify-between mb-1">
                     <h3
                       className={`font-semibold truncate ${
-                        chat.unreadCount > 0 ? "text-[#DCE7F5]" : "text-[#8DA0BF]"
+                        chat.unreadCount > 0
+                          ? "text-[#DCE7F5]"
+                          : "text-[#8DA0BF]"
                       }`}
                     >
                       {chat.partner?.name || "Unknown User"}
