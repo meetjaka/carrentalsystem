@@ -1,0 +1,445 @@
+CARS FILTER SYSTEM - COMPREHENSIVE SPECIFICATION
+==================================================
+
+DESIGN TOKENS
+-------------
+Background: #0A0F14
+Surface/Card: #111721
+Surface Hover: #151D27
+Primary: #0A4D9F
+Primary-Hover: #083A78
+Text Main: #DCE7F5
+Text Muted: #8DA0BF
+Border: rgba(255,255,255,0.04)
+Radius: 12-16px (rounded-xl to rounded-2xl)
+Shadow: 0 14px 40px rgba(0,0,0,0.55)
+Focus Ring: 2px, rgba(10,77,159,0.12)
+
+
+FILTER CONTROLS SPECIFICATION
+------------------------------
+
+1. SEARCH INPUT
+   Label: "Search cars" (sr-only)
+   Type: Text input
+   Placeholder: "Search by make, model..."
+   Behavior: Real-time filtering with 300ms debounce
+   States:
+     - Default: bg-[#0A0F14], border rgba(255,255,255,0.04), text #DCE7F5
+     - Focus: ring-2 ring-[rgba(10,77,159,0.12)]
+     - Disabled: opacity-50
+   Accessible Attributes:
+     - id="search-input"
+     - aria-label="Search cars by make, model, or type"
+     - role="searchbox"
+   Filters: brand, model, category, description (case-insensitive)
+
+
+2. CATEGORY FILTER
+   Label: "Category" (visible on desktop, sr-only on mobile)
+   Type: Multi-select chip buttons
+   Options: SUV, Sedan, Luxury, Sports, Van
+   Behavior: Toggle selection, multiple allowed
+   States:
+     - Unselected: bg-[#0A0F14], text #8DA0BF, border rgba(255,255,255,0.04)
+     - Selected: bg-[#0A4D9F], text white
+     - Hover: bg-[#151D27] (unselected only)
+   Accessible Attributes:
+     - aria-pressed={true/false}
+     - aria-label="Filter by {category} category"
+   Filter Key: categories (array)
+
+
+3. PRICE RANGE
+   Label: "Price" (visible on desktop)
+   Type: Dual number inputs (min/max)
+   Placeholders: "Min" / "Max"
+   Behavior: Instant filtering, both optional
+   States:
+     - Default: bg-[#0A0F14], border rgba(255,255,255,0.04), text #DCE7F5
+     - Focus: ring-2 ring-[rgba(10,77,159,0.12)]
+   Accessible Attributes:
+     - id="min-price", id="max-price"
+     - aria-label="Minimum price", "Maximum price"
+   Filter Keys: minPrice, maxPrice (numbers)
+
+
+4. TRANSMISSION FILTER
+   Label: "Transmission" (sr-only, button shows current selection)
+   Type: Dropdown select
+   Options: Automatic, Manual, Semi-Automatic
+   Behavior: Single selection, dropdown closes on select
+   States:
+     - Default: bg-[#0A0F14], text #DCE7F5, border rgba(255,255,255,0.04)
+     - Hover: bg-[#151D27]
+     - Selected in dropdown: bg-[#0A4D9F], text white
+   Accessible Attributes:
+     - aria-haspopup="true"
+     - aria-expanded={true/false}
+     - aria-label="Filter by transmission"
+     - role="menu" on dropdown
+   Filter Key: transmission (string)
+
+
+5. FUEL TYPE FILTER
+   Label: "Fuel Type" (sr-only, button shows current selection)
+   Type: Dropdown select
+   Options: Petrol, Diesel, Electric, Hybrid, Gas
+   Behavior: Single selection, dropdown closes on select
+   States: Same as Transmission
+   Accessible Attributes: Same as Transmission
+   Filter Key: fuelType (string)
+
+
+6. SEATING CAPACITY
+   Label: "Seating Capacity" (visible in expanded panel)
+   Type: Multi-select chip buttons
+   Options: 2, 4, 5, 7, 8 seats
+   Behavior: Toggle selection, multiple allowed
+   States: Same as Category
+   Accessible Attributes: Same as Category
+   Filter Key: seats (array of numbers)
+
+
+7. BRAND FILTER
+   Label: "Brand" (visible in expanded panel)
+   Type: Multi-select chip buttons
+   Options: BMW, Mercedes-Benz, Audi, Toyota, Ford, Jeep
+   Behavior: Toggle selection, multiple allowed
+   States: Same as Category
+   Accessible Attributes: Same as Category
+   Filter Key: brands (array)
+
+
+8. MODEL FILTER
+   Label: "Model"
+   Type: Text input
+   Placeholder: "e.g., X5, A6, C-Class"
+   Behavior: Real-time filtering with debounce
+   States: Same as Search Input
+   Accessible Attributes:
+     - id="model-input"
+     - aria-label="Filter by car model"
+   Filter Key: model (string)
+
+
+9. YEAR RANGE
+   Label: "Year Range"
+   Type: Dual number inputs (from/to)
+   Placeholders: "2020" / current year
+   Min/Max: 1900 to current year
+   Behavior: Instant filtering, both optional
+   States: Same as Price Range
+   Accessible Attributes:
+     - id="year-from", id="year-to"
+     - aria-label="Year from", "Year to"
+   Filter Keys: yearFrom, yearTo (numbers)
+
+
+10. AVAILABILITY TOGGLE
+    Label: "Available Now"
+    Type: Toggle button / Checkbox
+    Behavior: Boolean filter, shows only available cars
+    States:
+      - Unselected: bg-[#0A0F14], text #8DA0BF, border rgba(255,255,255,0.04)
+      - Selected: bg-[#0A4D9F], text white
+    Accessible Attributes:
+      - aria-pressed={true/false}
+      - aria-label="Filter available cars only"
+    Filter Key: available (boolean)
+
+
+11. SORT OPTIONS
+    Label: "Sort" (sr-only, button shows current selection)
+    Type: Dropdown select
+    Options:
+      - newest: "Newest"
+      - priceLow: "Price: Low to High"
+      - priceHigh: "Price: High to Low"
+      - rating: "Rating"
+    Behavior: Single selection, applies immediately
+    States: Same as Transmission
+    Accessible Attributes: Same as Transmission
+    Filter Key: sort (string)
+
+
+ACTIVE FILTER CHIPS
+-------------------
+Display: Above car grid, below filter bar
+Format: Removable chips showing active filter values
+Count: Shows "X filters active" when > 0
+Behavior:
+  - Individual remove button (X icon) on each chip
+  - "Clear all" button when multiple filters active
+  - Animated entry/exit (fade + scale)
+States:
+  - Default: bg-[#111721], text #DCE7F5, border rgba(255,255,255,0.04)
+  - Remove button hover: bg-[#151D27]
+Accessible Attributes:
+  - role="status"
+  - aria-label="Active filter: {label}"
+  - aria-label="Remove filter: {label}" on remove button
+
+
+DESKTOP LAYOUT (1440px)
+-----------------------
+Filter Bar:
+  - Full-width container, max-width centered
+  - Horizontal flex layout
+  - All main filters visible in single row
+  - "More Filters" button opens expanded panel
+  - "Clear" button visible when filters active
+
+Expanded Filter Panel:
+  - Modal overlay (backdrop blur)
+  - Centered, max-width 4xl
+  - Scrollable content (max-height 90vh)
+  - Contains: Brand, Model, Year Range, Price Slider, Seats
+  - Footer: Cancel + Apply Filters buttons
+
+Active Filters:
+  - Displayed above car grid
+  - Horizontal wrap layout
+  - Full-width container
+
+
+TABLET LAYOUT (1024px)
+----------------------
+Filter Bar:
+  - Same as desktop, may wrap on smaller tablets
+  - "More Filters" button always visible
+
+Expanded Filter Panel:
+  - Same as desktop
+  - Responsive padding adjustments
+
+
+MOBILE LAYOUT (360px)
+---------------------
+Sticky Filter Bar:
+  - Position: sticky top-16, z-40
+  - Compact search input (full-width minus button)
+  - "Filters" button with badge showing active count
+  - Border-bottom separator
+
+Mobile Filter Sheet:
+  - Bottom sheet (slides up from bottom)
+  - Full-screen height (max 90vh)
+  - Scrollable content
+  - Sticky "Apply Filters" button at bottom
+  - All filters stacked vertically
+  - Large touch targets (min 44px height)
+
+
+MICRO-INTERACTIONS
+------------------
+Focus States:
+  - All inputs/buttons: 2px ring, rgba(10,77,159,0.12)
+  - Transition: 150ms ease
+
+Hover States:
+  - Buttons: bg change to hover color
+  - Cards: translateY(-8px), shadow increase
+  - Chips: border opacity increase
+  - Transition: 300ms ease
+
+Loading States:
+  - Skeleton cards (3 placeholders)
+  - Pulse animation
+  - Debounce: 300ms before showing loading
+
+Dropdown Animations:
+  - Fade in/out: opacity 0-1
+  - Slide: translateY(-10px to 0)
+  - Duration: 200ms
+
+
+EMPTY STATE
+-----------
+Layout: Centered, max-width 2xl
+Content:
+  - Heading: "No cars found" (text-2xl, bold, #DCE7F5)
+  - Description: "Try adjusting your filters..." (#8DA0BF)
+  - CTA: "Clear All Filters" button (primary blue)
+Accessible Attributes:
+  - role="status"
+  - aria-live="polite"
+
+
+API INTEGRATION EXAMPLE
+-----------------------
+GET /api/cars?
+  query=bmw&
+  category=SUV&
+  category=Luxury&
+  minPrice=50&
+  maxPrice=300&
+  seats=4&
+  seats=5&
+  transmission=Automatic&
+  fuel=Hybrid&
+  brand=BMW&
+  brand=Mercedes-Benz&
+  model=X5&
+  yearFrom=2020&
+  yearTo=2024&
+  available=1&
+  sort=priceLow&
+  page=1&
+  limit=12
+
+Response Format:
+{
+  success: true,
+  cars: [...],
+  total: 45,
+  page: 1,
+  limit: 12,
+  totalPages: 4
+}
+
+
+DEBOUNCE vs APPLY BUTTON
+------------------------
+Current Implementation: Debounced Instant Filtering (300ms)
+
+Pros of Debounce:
+  - Immediate feedback
+  - No extra click required
+  - Better UX for power users
+  - Reduces API calls vs instant
+
+Cons of Debounce:
+  - May feel laggy on slow connections
+  - Can't preview before applying
+  - Harder to undo multiple changes
+
+Alternative: Apply Button Approach
+
+Pros of Apply Button:
+  - User can set multiple filters before applying
+  - Clear action/result relationship
+  - Better for complex filter combinations
+  - Easier to cancel changes
+
+Cons of Apply Button:
+  - Extra click required
+  - Less immediate
+  - May feel slower
+
+Recommendation: Keep debounce for main filters, use Apply for expanded panel (optional - currently instant)
+
+
+PERFORMANCE NOTES
+-----------------
+1. Client-Side Filtering (Current):
+   - All cars loaded, filtered in browser
+   - Fast for < 1000 cars
+   - No server round-trip
+   - Debounce prevents excessive re-renders
+
+2. Server-Side Filtering (Recommended for Production):
+   - Filter params sent to API
+   - Server returns filtered results
+   - Pagination support
+   - Better for large datasets (> 1000 cars)
+   - Reduces initial load time
+
+3. Image Lazy Loading:
+   - Use loading="lazy" on car images
+   - Intersection Observer for viewport detection
+   - Placeholder while loading
+
+4. Pagination:
+   - Implement infinite scroll or page numbers
+   - Load 12-24 cars per page
+   - Maintain filter state across pages
+
+5. Caching:
+   - Cache filter results for common queries
+   - Use React Query or SWR for data fetching
+   - Invalidate on filter change
+
+
+ACCESSIBILITY CHECKLIST
+-----------------------
+✓ All interactive elements keyboard accessible
+✓ Focus indicators visible (2px ring)
+✓ ARIA labels on all controls
+✓ ARIA roles (search, menu, dialog, status)
+✓ Screen reader announcements for filter changes
+✓ Color contrast meets WCAG AA (4.5:1 for text)
+✓ Touch targets minimum 44x44px on mobile
+✓ Form labels associated with inputs
+✓ Error states communicated to screen readers
+✓ Loading states announced
+
+
+ANALYTICS HOOKS (Design Notes)
+-------------------------------
+Track filter interactions:
+  - Filter applied: {filterType, value}
+  - Filter removed: {filterType, value}
+  - Clear all: {timestamp}
+  - Search query: {query, resultCount}
+  - Sort changed: {sortType}
+  - No results: {activeFilters}
+
+Example events:
+  - filter_applied: {type: "category", value: "SUV"}
+  - filter_removed: {type: "price", value: "50-300"}
+  - search_performed: {query: "bmw", results: 12}
+  - sort_changed: {sort: "priceLow"}
+
+
+TAILWIND UTILITY SUGGESTIONS
+----------------------------
+
+1. Filter Bar Container:
+   bg-[#111721] rounded-2xl p-4 md:p-6 border border-[rgba(255,255,255,0.04)] shadow-[0_14px_40px_rgba(0,0,0,0.55)]
+
+2. Filter Chip:
+   inline-flex items-center gap-2 px-3 py-1.5 bg-[#111721] border border-[rgba(255,255,255,0.04)] rounded-xl text-sm text-[#DCE7F5]
+
+3. Primary Filter Button:
+   px-4 py-2 bg-[#0A4D9F] hover:bg-[#083A78] text-white rounded-xl font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-[rgba(10,77,159,0.12)]
+
+
+COMPONENT STRUCTURE
+-------------------
+FilterBar.jsx - Main desktop filter bar
+ExpandedFilterPanel.jsx - Modal with advanced filters
+MobileFilterSheet.jsx - Bottom sheet for mobile
+FilterChip.jsx - Reusable filter chip component
+ActiveFilters.jsx - Active filters display component
+Cars.jsx - Main page with filter integration
+
+
+STATE MANAGEMENT
+----------------
+Filter State Object:
+{
+  search: string,
+  categories: string[],
+  minPrice: number | null,
+  maxPrice: number | null,
+  transmission: string | null,
+  fuelType: string | null,
+  seats: number[],
+  brands: string[],
+  model: string,
+  yearFrom: number | null,
+  yearTo: number | null,
+  available: boolean,
+  sort: string | null
+}
+
+Filter Application:
+- Debounced (300ms) for instant feel
+- Client-side filtering (can be upgraded to server-side)
+- Maintains filter state across navigation
+- Preserves filters when returning from car details
+
+
+END OF SPECIFICATION
+

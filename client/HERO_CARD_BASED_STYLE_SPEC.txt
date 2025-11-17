@@ -1,0 +1,112 @@
+HERO CARD-BASED LAYOUT - STYLE SPECIFICATION
+==============================================
+
+COLOR TOKENS
+------------
+Background: #0A0F14
+Surface Card: #111721
+Surface Hover: #151D27
+Primary Blue: #0A4D9F
+Primary Hover: #083A78
+Text Main: #DCE7F5
+Text Muted: #8DA0BF
+Border Subtle: rgba(255,255,255,0.04)
+Shadow: 0 16px 40px rgba(0,0,0,0.55)
+Radius: 16px (rounded-2xl)
+
+TYPOGRAPHY
+----------
+Font Family: Inter or Manrope (system default)
+Title: 44-56px bold (text-4xl md:text-5xl lg:text-[56px] font-bold)
+Body/Common: 16-18px (text-base)
+Muted Labels: 12-14px uppercase with tracking (text-xs sm:text-sm uppercase tracking-wide)
+
+SPACING SCALE
+-------------
+Hero Container Padding: 24px vertical, 24-128px horizontal (py-24 px-6 md:px-16 lg:px-24 xl:px-32)
+Title to Search Gap: 48px (gap-12)
+Search to Cards Gap: 48px (gap-12)
+Card Grid Gap: 24-32px (gap-6 lg:gap-8)
+Search Bar Padding: 20-24px (p-5 sm:p-6)
+Card Padding: 24px (p-6)
+Card Image Height: 256px (h-64)
+
+CARD HOVER STATES
+-----------------
+Card Hover:
+  - Background: #111721 → #151D27
+  - Transform: translateY(-8px)
+  - Shadow: 0 16px 40px rgba(0,0,0,0.55) → 0 20px 48px rgba(0,0,0,0.65)
+  - Border: rgba(255,255,255,0.04) → rgba(255,255,255,0.08)
+  - Image: scale(1.1) on hover
+  - Duration: 300ms transition
+
+Button Hover:
+  - View Details Button: 
+    - Background: transparent → #151D27
+    - Text: #8DA0BF → #DCE7F5
+    - Border: rgba(255,255,255,0.04) → rgba(255,255,255,0.08)
+    - Scale: 1.02
+  - Search Button:
+    - Background: #0A4D9F → #083A78
+    - Scale: 1.02
+
+LAYOUT RULES
+------------
+Hero Structure:
+  1. Title (centered, large spacing)
+  2. Search Bar (full-width, compact, centered)
+  3. Car Cards (3 cards horizontally, evenly spaced)
+
+Desktop (1440px):
+  - Title: 56px, centered
+  - Search Bar: max-width 1280px, horizontal layout
+  - Cards: 3 columns, equal width, gap 32px
+
+Mobile (360px):
+  - Title: 36px, centered
+  - Search Bar: full-width, vertical stack
+  - Cards: 1 column, full-width, stacked vertically
+
+RESPONSIVE BREAKPOINTS
+----------------------
+sm: 640px (tablet portrait)
+md: 768px (tablet landscape)
+lg: 1024px (desktop)
+xl: 1280px (large desktop)
+
+COMPONENT SPECIFICATIONS
+------------------------
+Hero Container:
+  - min-height: 100vh
+  - flex-direction: column
+  - items: center
+  - justify: center
+  - background: #0A0F14
+  - padding: responsive
+
+Search Bar:
+  - background: #111721
+  - border: 1px rgba(255,255,255,0.04)
+  - border-radius: 16px
+  - shadow: 0 16px 40px rgba(0,0,0,0.55)
+  - padding: 20-24px
+  - layout: horizontal on desktop, vertical on mobile
+
+Car Card:
+  - background: #111721
+  - border: 1px rgba(255,255,255,0.04)
+  - border-radius: 16px
+  - shadow: 0 16px 40px rgba(0,0,0,0.55)
+  - overflow: hidden
+  - image: 256px height, object-cover
+  - padding: 24px
+
+ANIMATIONS
+----------
+Fade In: opacity 0 → 1, duration 0.8s
+Slide Up: translateY(50px) → 0, duration 0.8s
+Card Stagger: delay 0.7s + (index * 0.1s)
+Hover Lift: translateY(-8px), duration 300ms
+Image Zoom: scale(1.1), duration 700ms
+
