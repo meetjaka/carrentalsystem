@@ -101,10 +101,11 @@ const Footer = () => {
           <div>
             <h2 className="text-base font-medium text-[#DCE7F5]">Contact</h2>
             <ul className="mt-3 flex flex-col gap-1.5 text-sm">
-              <li>1234 Rental Car Office</li>
-              <li>San Francisco , CA 94107</li>
-              <li>+91 9876543210</li>
-              <li>carrental@gmail.com</li>
+              <li>Plot No. 45, Sector 21</li>
+              <li>Andheri East, Mumbai – 400069</li>
+              <li>Maharashtra, India</li>
+              <li>+91 7567180754</li>
+              <li>nextdrive@gmail.com</li>
             </ul>
           </div>
         </motion.div>
