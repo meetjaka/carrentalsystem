@@ -6,6 +6,7 @@ import userRouter from "./routes/userRoutes.js";
 import ownerRouter from "./routes/ownerRoutes.js";
 import bookingRouter from "./routes/bookingRoutes.js";
 import chatRouter from "./routes/chatRoutes.js";
+import reviewRouter from "./routes/reviewRoutes.js";
 
 const app = express();
 
@@ -20,6 +21,7 @@ app.use("/api/user", userRouter);
 app.use("/api/owner", ownerRouter);
 app.use("/api/booking", bookingRouter);
 app.use("/api/chat", chatRouter);
+app.use("/api/reviews", reviewRouter);
 
 const PORT = process.env.PORT || 3000;
 

@@ -34,12 +34,10 @@ const FilterBar = ({
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const handleCategoryToggle = (category) => {
-    const current = filters.categories || [];
-    const updated = current.includes(category)
-      ? current.filter((c) => c !== category)
-      : [...current, category];
-    onFilterChange({ ...filters, categories: updated });
+  const handleCategoryChange = (category) => {
+    // Single select category (or null to clear)
+    onFilterChange({ ...filters, categories: category ? [category] : [] });
+    setOpenDropdown(null);
   };
 
   const handleSeatsToggle = (seat) => {
@@ -80,24 +78,55 @@ const FilterBar = ({
         aria-label="Car filters"
       >
         <div className="flex flex-col lg:flex-row items-start lg:items-center gap-4">
-          {/* Category Chips */}
-          <div className="flex items-center gap-2 flex-wrap">
-            <span className="text-xs text-[#8DA0BF] hidden md:inline">Category:</span>
-            {categories.slice(0, 3).map((cat) => (
-              <button
-                key={cat}
-                onClick={() => handleCategoryToggle(cat)}
-                className={`px-3 py-1.5 rounded-xl text-sm font-medium transition-all ${
-                  filters.categories?.includes(cat)
-                    ? "bg-[#0A4D9F] text-white"
-                    : "bg-[#0A0F14] text-[#8DA0BF] border border-[rgba(255,255,255,0.04)] hover:bg-[#151D27]"
-                } focus:outline-none focus:ring-2 focus:ring-[rgba(10,77,159,0.12)]`}
-                aria-pressed={filters.categories?.includes(cat)}
-                aria-label={`Filter by ${cat} category`}
-              >
-                {cat}
-              </button>
-            ))}
+          {/* Category Dropdown */}
+          <div className="relative" ref={dropdownRef}>
+            <button
+              onClick={() => setOpenDropdown(openDropdown === "category" ? null : "category")}
+              className="px-4 py-2 bg-[#0A0F14] border border-[rgba(255,255,255,0.04)] rounded-xl text-[#DCE7F5] text-sm hover:bg-[#151D27] focus:outline-none focus:ring-2 focus:ring-[rgba(10,77,159,0.12)] transition-all"
+              aria-haspopup="true"
+              aria-expanded={openDropdown === "category"}
+              aria-label="Filter by category"
+            >
+              {filters.categories?.length > 0 ? filters.categories[0] : "Category"}
+              <span className="ml-2">▼</span>
+            </button>
+            <AnimatePresence>
+              {openDropdown === "category" && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  className="absolute top-full mt-2 left-0 z-50 bg-[#111721] border border-[rgba(255,255,255,0.04)] rounded-xl shadow-[0_14px_40px_rgba(0,0,0,0.55)] min-w-[180px]"
+                  role="menu"
+                >
+                  <button
+                    onClick={() => handleCategoryChange(null)}
+                    className={`w-full text-left px-4 py-2 text-sm ${
+                      filters.categories?.length === 0
+                        ? "bg-[#0A4D9F] text-white"
+                        : "text-[#DCE7F5] hover:bg-[#151D27]"
+                    } first:rounded-t-xl transition-colors focus:outline-none focus:ring-2 focus:ring-[rgba(10,77,159,0.12)]`}
+                    role="menuitem"
+                  >
+                    All Categories
+                  </button>
+                  {categories.map((cat) => (
+                    <button
+                      key={cat}
+                      onClick={() => handleCategoryChange(cat)}
+                      className={`w-full text-left px-4 py-2 text-sm ${
+                        filters.categories?.includes(cat)
+                          ? "bg-[#0A4D9F] text-white"
+                          : "text-[#DCE7F5] hover:bg-[#151D27]"
+                      } last:rounded-b-xl transition-colors focus:outline-none focus:ring-2 focus:ring-[rgba(10,77,159,0.12)]`}
+                      role="menuitem"
+                    >
+                      {cat}
+                    </button>
+                  ))}
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
 
           {/* Price Range */}
